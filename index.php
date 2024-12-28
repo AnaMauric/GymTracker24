@@ -19,7 +19,7 @@
                     <label for='password'>Password</label>
                     <input type='password' id='password' name='password' placeholder='Enter your password'>
                 </div>
-                <button type='submit' class='save-button'>Save</button>
+                <button type='submit' class='save-button'>Log in</button>
             </form>
         </div>
         <script src='scriptUsers.js'></script>

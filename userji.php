@@ -28,32 +28,33 @@ switch($_SERVER["REQUEST_METHOD"])
 
 	case 'POST':
 		dodaj_user();
+		//http_response_code(404);
 		break;
  
 
 
 	case 'PUT':
-		if(!empty($_GET["userVzdevek"]))
-		{
-			posodobi_user($_GET["userVzdevek"]);
-		}
-		else
-		{
-			http_response_code(400);
-		}
+		//if(!empty($_GET["userVzdevek"]))
+		//{
+		posodobi_user();
+		//}
+		//else
+		//{
+		//	http_response_code(400);
+		//}
 		break;
 
 
 
 	case 'DELETE':
-		if(!empty($_GET["userVzdevek"]))
-		{
-			izbrisi_user($_GET["userVzdevek"]);
-		}
-		else
-		{
-			http_response_code(400);
-		}
+		//if(!empty($_GET["userVzdevek"]))
+		//{
+		izbrisi_user();
+		//}
+		//else
+		//{
+		//	http_response_code(400);
+		//}
 		break;
 
  
@@ -100,7 +101,7 @@ function pridobi_user($userVzdevek)
 	{
 		$odgovor=mysqli_fetch_assoc($rezultat);
  
-		http_response_code(200);		
+		http_response_code(204);		
 		echo json_encode($odgovor);
 	}
 	else							
@@ -116,7 +117,7 @@ function dodaj_user()
 	global $zbirka, $DEBUG;
 	$podatki = json_decode(file_get_contents("php://input"),true);
 
-	if (isset($podatki["username"], $podatki["password"] ) && !isset($podatki["birthday"]) && !isset($podatki["weight"]))
+	if (isset($podatki["username"], $podatki["password"]))
 	{
 		$userVzdevek = mysqli_escape_string($zbirka, $podatki["username"]);
 		$userPassword = mysqli_escape_string($zbirka, $podatki["password"]);
@@ -157,21 +158,21 @@ function dodaj_user()
 	
 		}
 	}
-	elseif(isset($podatki["username"], $podatki["birthday"], $podatki["weight"]))
+
+	elseif(isset($podatki["username"], $podatki["password"], $podatki["birthday"], $podatki["weight"]))
 	{
 		$userVzdevek = mysqli_escape_string($zbirka, $podatki["username"]);
+		$userPassword = mysqli_escape_string($zbirka, $podatki["password"]);
 		$birthday = mysqli_escape_string($zbirka, $podatki["birthday"]);
 		$weight = mysqli_escape_string($zbirka, $podatki["weight"]);
  
-		if(!user_obstaja($userVzdevek))
+		if(user_obstaja($userVzdevek))
 		{	
-			$poizvedba = "INSERT INTO user (username, birthday, weight) VALUES ('$userVzdevek', '$birthday', '$weight')";
+			$poizvedba = "UPDATE user (password, birthday, weight) VALUES ('$userPassword', '$birthday', '$weight') WHERE username='$userVzdevek'";
  
 			if(mysqli_query($zbirka, $poizvedba))
 			{
 				http_response_code(201);
-				$odgovor = URL_vira($userVzdevek);
-				echo json_encode($odgovor);
 			}
 			else
 			{
@@ -190,22 +191,46 @@ function dodaj_user()
 	else
 	{
 		http_response_code(response_code: 405);
-		//tukaj sva
 	}
 }
  
 
 
 
-function posodobi_user($userVzdevek)
+function posodobi_user()
 {
 	global $zbirka, $DEBUG;
- 
-	$userVzdevek = mysqli_escape_string($zbirka, $userVzdevek);
- 
 	$podatki = json_decode(file_get_contents("php://input"),true);
+
+	if (isset($podatki["username"], $podatki["password"], $podatki["birthday"], $podatki["weight"]))
+	{
+		$userVzdevek = mysqli_escape_string($zbirka, $podatki["username"]);
+		$userPassword = mysqli_escape_string($zbirka, $podatki["password"]);
+		$birthday = mysqli_escape_string($zbirka, $podatki["birthday"]);
+		$weight = mysqli_escape_string($zbirka, $podatki["weight"]);	
+
+		if(user_obstaja($userVzdevek)){
+			$poizvedba = "UPDATE user SET password = '$userPassword', birthday = '$birthday', weight = '$weight' WHERE username = '$userVzdevek'";
+			
+			if(mysqli_query($zbirka, $poizvedba))
+			{
+				http_response_code(204);	
+			} else {
+				http_response_code(500);
+				if($DEBUG)
+				{
+					pripravi_odgovor_napaka(mysqli_error($zbirka));
+				}
+			}
+	
+		}else {
+			http_response_code(404);	
+		}
+	} else {
+		http_response_code(400);	
+	}
  
-	if(user_obstaja($userVzdevek))
+	/*if(user_obstaja($userVzdevek))
 	{
 		if($podatki["weight"])
 		{
@@ -234,36 +259,42 @@ function posodobi_user($userVzdevek)
 	else
 	{
 		http_response_code(404);	
-	}
+	}*/
 }
 
 
 
-function izbrisi_user($userVzdevek)
+function izbrisi_user()
 {
 	global $zbirka, $DEBUG;
- 
-	$userVzdevek = mysqli_escape_string($zbirka, $userVzdevek);
-	if(user_obstaja($userVzdevek))
+	$podatki = json_decode(file_get_contents("php://input"),true);
+
+	if (isset($podatki["username"]))
 	{
-		$poizvedba = "DELETE FROM user WHERE username='$userVzdevek'";
-		if(mysqli_query($zbirka, $poizvedba))
+		$userVzdevek = mysqli_escape_string($zbirka, $podatki["username"]);
+
+		if(user_obstaja($userVzdevek))
 		{
-			http_response_code(204);
+			$poizvedba = "DELETE FROM user WHERE username='$userVzdevek'";
+			if(mysqli_query($zbirka, $poizvedba))
+			{
+				http_response_code(204);
+			}
+			else
+			{
+				http_response_code(500);
+				if($DEBUG)
+				{
+					pripravi_odgovor_napaka(mysqli_error($zbirka));
+				}
+			}
 		}
 		else
 		{
-			http_response_code(500);
-			if($DEBUG)
-			{
-				pripravi_odgovor_napaka(mysqli_error($zbirka));
-			}
+			http_response_code(404);	
 		}
-	}
-	else
-	{
-		http_response_code(404);	
-	}
+		
+		}
 }
 
 

@@ -55,6 +55,7 @@ input:focus {
     width: 300px;
     padding: 10px;
     background-color: #007BFF;
+    font-weight: bold;
     color: white;
     font-size: 16px;
     border: none;
@@ -65,4 +66,109 @@ input:focus {
 
 .save-button:hover {
     background-color: #0056b3;
+}
+
+
+
+
+
+#scrollable-div {
+    max-height: 300px; /* Set a maximum height for the div */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ccc; /* Optional: Add a border for the div */
+    padding: 10px; /* Add padding to make it look better */
+}
+
+#data-table {
+    width: 100%; /* Ensure the table spans the full width of the div */
+    border-collapse: collapse;
+}
+
+#data-table th, #data-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#data-table th {
+    background-color: #f4f4f4;
+    position: sticky; /* Keep headers visible during scrolling */
+    top: 0;
+}
+
+
+
+input[type="text"], input[type="password"], input[type="date"], input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+
+
+/* Home Button Styles */
+/* Home Button Styles */
+.home-button {
+    position: fixed; /* Force the button to stay in one place on the screen */
+    top: 10px; /* Distance from the top of the screen */
+    left: 10px; /* Distance from the left of the screen */
+    text-decoration: none;
+    color: #fff;
+    background-color: #007BFF;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 1000; /* Ensure it appears above other content */
+    transition: background-color 0.3s ease;
+}
+
+.home-button:hover {
+    background-color: #0056b3;
+}
+
+
+.other-button {
+    transform: translate(-50%, -50%); /* Center the button at the specified top/left position */
+    text-decoration: none;
+    color: #fff;
+    background-color: #28a745; /* A green color for differentiation */
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 1000; /* Ensure it appears above other content */
+    transition: background-color 0.3s ease;
+}
+
+.other-button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+
+
+
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1rem 0;
+}
+
+.chart-container {
+    margin: 2rem auto;
+    padding: 1rem;
+    width: 80%;
+    max-width: 600px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+canvas {
+    width: 100%;
+    height: auto;
 }

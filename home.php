@@ -12,8 +12,8 @@ echo "<!DOCTYPE html>
     <div class='container'>
         <h1>GymTracker 24</h1>
         <a href='gym.php' id='gym' class='save-button'>Gym</a>
-        <button id='statistics' class='save-button'>Statistics</button>
-        <button id='profile' class='save-button'>Profile</button>
+        <a href='stats.php' id='stats' class='save-button'>Statistics</a>
+        <a href='profile.php' id='profile' class='save-button'>Profile</a>
     </div>
 </body>
 </html>";

@@ -14,9 +14,9 @@ header('Access-Control-Allow-Origin: *');
 switch($_SERVER["REQUEST_METHOD"])		
 {
 	case 'GET':
-		if(!empty($_GET["userVzdevek"]))
+		if(!empty($_GET["username"]))
 		{
-			user_exercise($_GET["userVzdevek"]);		
+			user_exercise($_GET["username"]);		
 		}
 		else
 		{
@@ -38,14 +38,14 @@ switch($_SERVER["REQUEST_METHOD"])
 
 
 	case 'DELETE':
-		if(!empty($_GET["userVzdevek"]))
-		{
-			izbrisi_exercise($_GET["userVzdevek"]);		
-		}
-		else
-		{
-			http_response_code(400);				
-		}
+		//if(!empty($_GET["userVzdevek"]))
+		//{
+			izbrisi_exercise();		
+		//}
+		//else
+		//{
+		//	http_response_code(400);				
+		//}
 		break;
  
 	default:
@@ -59,27 +59,29 @@ mysqli_close($zbirka);
 function user_exercise($userVzdevek)
 {
 	global $zbirka;
-	$userVzdevek=mysqli_escape_string($zbirka, $userVzdevek);
 	$odgovor=array();
-	
-	if(user_obstaja($userVzdevek))
-	{
-		$poizvedba="SELECT exercise_name, date, weight, sets, reps FROM exercise WHERE username='$userVzdevek'";
-		
-		$result=mysqli_query($zbirka, $poizvedba);
 
-		while($vrstica=mysqli_fetch_assoc($result))
-		{
-			$odgovor[]=$vrstica;
-		}
-		
-		http_response_code(200);		
-		echo json_encode($odgovor);
-	}
-	else
+    if (user_obstaja($userVzdevek))
+    {
+        $poizvedba="SELECT exercise_name, date, weight, sets, reps FROM exercise WHERE username='$userVzdevek' ORDER BY date";
+
+            $result=mysqli_query($zbirka, $poizvedba);
+
+            while($vrstica=mysqli_fetch_assoc($result))
+		    {
+			    $odgovor[]=$vrstica;
+		    }
+
+            http_response_code(200);		
+		    echo json_encode($odgovor);
+
+    }
+	
+    else
 	{
 		http_response_code(404);	
-	}
+	}  
+	
 }
 
 
@@ -167,19 +169,19 @@ function dodaj_ali_posodobi_exercise()
 }
 
 
-function izbrisi_exercise($userVzdevek)
+function izbrisi_exercise()
 {
     global $zbirka, $DEBUG;
 
     // Preberi podatke iz telesa zahteve
     $podatki = json_decode(file_get_contents('php://input'), true);
 
-    if (isset($podatki["exercise_name"], $podatki["date"]))
+    if (isset($podatki["username"], $podatki["exercise_name"], $podatki["date"]))
     {
         // Preveri, ali uporabnik obstaja
-        if (user_obstaja($userVzdevek))
+        if (user_obstaja($podatki["username"]))
         {
-            $userVzdevek = mysqli_escape_string($zbirka, $userVzdevek);
+            $userVzdevek = mysqli_escape_string($zbirka, $podatki["username"]);
             $exercise_name = mysqli_escape_string($zbirka, $podatki["exercise_name"]);
             $date = mysqli_escape_string($zbirka, $podatki["date"]);
 
