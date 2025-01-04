@@ -6,7 +6,7 @@ echo"<!DOCTYPE html>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Profile Page</title>
-    <link rel='stylesheet' href='styles.css'> <!-- Link to the external CSS file -->
+    <link rel='stylesheet' href='styles.css'> 
 </head>
 <body>
     <a href='home.php' class='home-button'>Home</a>

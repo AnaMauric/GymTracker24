@@ -7,7 +7,48 @@ window.onload = function () {
     // Set default values
     usernameInput.value = localStorage.getItem("username");
     passwordInput.value = localStorage.getItem("password");
+
+    GetBirthAndWeight(localStorage.getItem("username"));
+
 };
+
+
+async function GetBirthAndWeight(username){
+    try {
+        // Ustvari URL z uporabniškim imenom kot query parameter
+        const url = `userji.php?userVzdevek=${encodeURIComponent(username)}`;
+        
+        const response = await fetch(url, {
+            method: 'GET'
+        });  
+
+        //alert('Respond status: ' + response.status);
+
+        if (!response.ok) {
+            throw new Error('Napaka pri pridobivanju podatkov. Status: ' + response.status);
+        }
+
+        //console.log(response);
+        const data = await response.json(); // Predpostavimo, da server vrne JSON
+        //console.log(data);
+
+        const birthdayInput = document.getElementById('birthday');
+        const weightInput = document.getElementById('weight');
+
+        if (birthdayInput && weightInput) {
+            birthdayInput.value = data.birthday; // Nastavi datum rojstva
+            weightInput.value = data.weight;     // Nastavi težo
+        } else {
+            console.error('Input polja za birthday ali weight niso najdena.');
+        }
+
+
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to connect to the server.');
+    }
+}
+
 
 
 
@@ -30,7 +71,7 @@ async function handleFormProfile(event) {
             body: JSON.stringify({ username: username, password: password, birthday: birthday, weight: weight}),
         });
             
-        alert('Respond status - 69: ' + response.status);
+        alert('Respond status: ' + response.status);
         
 
         
@@ -40,6 +81,9 @@ async function handleFormProfile(event) {
     }
 
 }
+
+
+
 
 
 

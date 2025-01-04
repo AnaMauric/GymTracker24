@@ -83,7 +83,7 @@ async function fetchData() {
         
         const response = await fetch(url, {
             method: 'GET'
-        });
+        }); 
 
         //alert('Respond status: ' + response.status);
 

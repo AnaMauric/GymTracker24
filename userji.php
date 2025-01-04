@@ -90,7 +90,7 @@ mysqli_close($zbirka);
 
 function pridobi_user($userVzdevek)
 {
-	global $zbirka;
+	/*global $zbirka;
 	$userVzdevek=mysqli_escape_string($zbirka, $userVzdevek);
  
 	$poizvedba="SELECT username, birthday, weight FROM user WHERE username='$userVzdevek'";
@@ -107,7 +107,34 @@ function pridobi_user($userVzdevek)
 	else							
 	{
 		http_response_code(404);		
-	}
+	}*/
+
+
+	global $zbirka;
+	$odgovor=array();
+
+    if (user_obstaja($userVzdevek))
+    {
+        $poizvedba="SELECT birthday, weight FROM user WHERE username='$userVzdevek'";
+
+            $result=mysqli_query($zbirka, $poizvedba);
+
+            while($vrstica=mysqli_fetch_assoc($result))
+		    {
+			    $odgovor=$vrstica;
+		    }
+
+            http_response_code(200);		
+		    echo json_encode($odgovor);
+
+    }
+	
+    else
+	{
+		http_response_code(404);	
+	}  
+
+
 }
  
 

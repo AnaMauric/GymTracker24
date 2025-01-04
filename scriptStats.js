@@ -1,53 +1,88 @@
-fetch('/path-to-your-endpoint')
-    .then(response => response.json())
-    .then(data => {
-        // Iz podatkov SQL pridobi datume in težo
-        const dates = data.map(entry => entry.date);
-        const weights = data.map(entry => entry.weight);
+// Izberemo vnosno polje in gumb
+const inputField = document.getElementById('exercise');
+const submitButton = document.getElementById('submitButton'); 
 
-        // Ustvari graf z datumi na osi Y in težo na osi X
-        createChart(dates, weights);
-    });
+// Dogodek na klik gumba
+submitButton.addEventListener('click', () => {
+  // Dobimo vrednost iz vnosnega polja
+    const enteredValue = inputField.value;
+    fetchAndRenderChart(enteredValue);
+  
+});
 
-function createChart(dates, weights) {
-    const ctx = document.getElementById('statisticsChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'line', // Ali drug tip grafa\n",
+
+let chartInstance = null; // Globalna spremenljivka za graf
+
+
+// Function to fetch data and render the chart
+async function fetchAndRenderChart(exercise) {
+    try {
+      // API URL with parameters
+      const username = localStorage.getItem("username");
+      //const exercise = "biceps curls";
+      const apiUrl = `graphStats.php?username=${username}&exercise=${exercise}`; 
+  
+      // Fetch data from the API
+      const response = await fetch(apiUrl);
+  
+      if (!response.ok) {
+        throw new Error(`API Error: ${response.status}`);
+      }
+  
+      const data = await response.json();
+  
+      // Extract dates and weights for the chart
+      const dates = data.map(item => item.date);
+      const weights = data.map(item => item.weight);
+  
+      // Render chart using Chart.js
+      const ctx = document.getElementById('weightChart').getContext('2d');
+
+      // Uniči obstoječi graf, če obstaja
+        if (chartInstance) {
+            chartInstance.destroy();
+        } 
+
+
+        chartInstance = new Chart(ctx, {
+        type: 'line', // Line chart
         data: {
-            labels: weights, // X-axis (weights)\n",
-            datasets: [{
-                label: 'Weight Over Time',
-                data: dates.map((date, i) => ({ x: weights[i], y: date })), // x=weight, y=date
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1
-            }]
+          labels: dates, // X-axis labels
+          datasets: [{
+            label: 'Weight Progress',
+            data: weights, // Y-axis data
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderWidth: 2,
+          }]
         },
         options: {
-            responsive: true,
-            scales: {
-                x: {
-                    type: 'linear', // Linear scale for weights
-                    title: {
-                        display: true,
-                        text: 'Weight (kg)'
-                    }
-                },
-                y: {
-                    type: 'time', // Time scale for dates
-                    time: {
-                        unit: 'day'
-                    },
-                    title: {
-                        display: true,
-                        text: 'Date'
-                    }
-                }
+          responsive: true,
+          plugins: {
+            legend: {
+              display: true,
+              position: 'top',
             }
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Date',
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Weight (kg)',
+              }
+            }
+          }
         }
-    });
-}
-
-
-
-//to moraš povezat z graphStats.js
+      });
+    } catch (error) {
+      console.error('Error fetching or rendering chart:', error);
+    }
+  }
+  
+  
