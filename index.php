@@ -1,5 +1,5 @@
 <?php
-    echo "<!DOCTYPE html>
+    echo "<!DOCTYPE html> 
     <html lang='en'>
     <head>
         <meta charset='UTF-8'>
@@ -9,7 +9,7 @@
     </head>
     <body>
         <div class='container'>
-            <h1>GymTracker 24</h1>
+            <h2>GymTracker 24</h2>
             <form onsubmit='handleForm(event)'>
                 <div class='form-group'>
                     <label for='username'>Username</label>

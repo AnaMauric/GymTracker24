@@ -10,13 +10,15 @@ echo "<!DOCTYPE html>
 </head>
 <body>
     <a href='home.php' class='home-button'>Home</a>
-  <h1>Weight Progress Chart</h1>
-    <canvas id='weightChart' width='150' height='150'></canvas>
-  <div>
-  <input type='text' id='exercise' placeholder='Enter exercise'>
-    <button id='submitButton'>Submit</button>
-  </div>
-  <script src='scriptStats.js'></script>
+    <div>
+    <h1>Weight Progress Chart</h1>
+    <input type='text' id='exercise' placeholder='Enter exercise'>
+      <button id='submitButton' class='save-button'>Submit</button>
+    </div>
+    <div>
+      <canvas id='weightChart' width='500' height='500'></canvas>
+    </div>
+    <script src='scriptStats.js'></script>
 </body>
 </html>";  
 ?>

@@ -6,8 +6,7 @@ RewriteRule ^userji/(.+)/?$ userji.php?userVzdevek=$1 [NC,L] 	# preslika vzorec 
 RewriteRule ^exercises/?$ exercises.php [NC,L]						
 RewriteRule ^exercises/(.+)/?$ exercises.php?userVzdevek=$1 [NC,L]
 
-RewriteRule ^nutrition/?$ nutrition.php [NC,L]						
-RewriteRule ^nutrition/(.+)/?$ nutrition.php?userVzdevek=$1 [NC,L]
+
 
 
 # Onemogočimo direkten dostop do orodja.php

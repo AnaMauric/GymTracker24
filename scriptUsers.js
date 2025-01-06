@@ -1,13 +1,13 @@
 async function handleForm(event) {
-    event.preventDefault(); // Prepreči privzeto vedenje obrazca
+    event.preventDefault(); 
     
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     localStorage.setItem("username", username);
 	localStorage.setItem("password", password);
     
-    if (!username) {
-        alert('Please enter a username.');
+    if (!username || !password) {
+        alert('Please enter username and password.');
         return;
     }
 
@@ -24,7 +24,7 @@ async function handleForm(event) {
             alert('User registered successfully!');
             window.location.href = 'home.php';
         } else if (response.status === 200) {
-            alert('User already exists!');
+            alert('Welcome back ' + username);
             window.location.href = 'home.php';
         } else {
             alert('An error occurred. Please try again later.' + response.status);

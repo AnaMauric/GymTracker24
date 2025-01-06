@@ -1,28 +1,21 @@
-// Izberemo vnosno polje in gumb
 const inputField = document.getElementById('exercise');
 const submitButton = document.getElementById('submitButton'); 
 
-// Dogodek na klik gumba
 submitButton.addEventListener('click', () => {
-  // Dobimo vrednost iz vnosnega polja
     const enteredValue = inputField.value;
     fetchAndRenderChart(enteredValue);
   
 });
 
 
-let chartInstance = null; // Globalna spremenljivka za graf
+let chartInstance = null; 
 
 
-// Function to fetch data and render the chart
 async function fetchAndRenderChart(exercise) {
     try {
-      // API URL with parameters
       const username = localStorage.getItem("username");
-      //const exercise = "biceps curls";
       const apiUrl = `graphStats.php?username=${username}&exercise=${exercise}`; 
   
-      // Fetch data from the API
       const response = await fetch(apiUrl);
   
       if (!response.ok) {
@@ -31,28 +24,24 @@ async function fetchAndRenderChart(exercise) {
   
       const data = await response.json();
   
-      // Extract dates and weights for the chart
       const dates = data.map(item => item.date);
       const weights = data.map(item => item.weight);
   
-      // Render chart using Chart.js
       const ctx = document.getElementById('weightChart').getContext('2d');
 
-      // Uniči obstoječi graf, če obstaja
         if (chartInstance) {
             chartInstance.destroy();
         } 
 
-
         chartInstance = new Chart(ctx, {
-        type: 'line', // Line chart
+        type: 'line', 
         data: {
-          labels: dates, // X-axis labels
+          labels: dates, 
           datasets: [{
             label: 'Weight Progress',
-            data: weights, // Y-axis data
-            borderColor: 'rgba(75, 192, 192, 1)',
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            data: weights, 
+            borderColor: '#800020',
+            backgroundColor: '#800020',
             borderWidth: 2,
           }]
         },

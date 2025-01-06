@@ -1,10 +1,8 @@
-// Wait for the page to fully load
+
 window.onload = function () {
-    // Get references to the input fields
     const usernameInput = document.getElementById('username');
     const passwordInput = document.getElementById('password');
 
-    // Set default values
     usernameInput.value = localStorage.getItem("username");
     passwordInput.value = localStorage.getItem("password");
 
@@ -15,29 +13,25 @@ window.onload = function () {
 
 async function GetBirthAndWeight(username){
     try {
-        // Ustvari URL z uporabniškim imenom kot query parameter
         const url = `userji.php?userVzdevek=${encodeURIComponent(username)}`;
         
         const response = await fetch(url, {
             method: 'GET'
         });  
 
-        //alert('Respond status: ' + response.status);
 
         if (!response.ok) {
             throw new Error('Napaka pri pridobivanju podatkov. Status: ' + response.status);
         }
 
-        //console.log(response);
-        const data = await response.json(); // Predpostavimo, da server vrne JSON
-        //console.log(data);
+        const data = await response.json(); 
 
         const birthdayInput = document.getElementById('birthday');
         const weightInput = document.getElementById('weight');
 
         if (birthdayInput && weightInput) {
-            birthdayInput.value = data.birthday; // Nastavi datum rojstva
-            weightInput.value = data.weight;     // Nastavi težo
+            birthdayInput.value = data.birthday; 
+            weightInput.value = data.weight;    
         } else {
             console.error('Input polja za birthday ali weight niso najdena.');
         }
@@ -54,7 +48,7 @@ async function GetBirthAndWeight(username){
 
 
 async function handleFormProfile(event) {
-    event.preventDefault(); // Prepreči privzeto vedenje obrazca
+    event.preventDefault(); 
 
     username = localStorage.getItem("username");
     const password = document.getElementById('password').value;
@@ -71,9 +65,8 @@ async function handleFormProfile(event) {
             body: JSON.stringify({ username: username, password: password, birthday: birthday, weight: weight}),
         });
             
-        alert('Respond status: ' + response.status);
+        alert('Profile successfuly updated.');
         
-
         
     } catch (error) {
         console.error('Error:', error);
@@ -100,11 +93,10 @@ async function deleteProfile() {
             body: JSON.stringify({ username: username}),
         });
             
-        alert('Respond status: ' + response.status);
+        alert('Profile succesfully deleted.');
 
         if (response.ok) {
-            // Redirect to a new page after successful profile deletion
-            window.location.href = 'index.php';  // Replace with your desired URL
+            window.location.href = 'index.php';  
         } 
         
 

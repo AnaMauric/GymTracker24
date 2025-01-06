@@ -38,9 +38,9 @@ echo"<!DOCTYPE html>
             </div>
         </form>
         <div class='form-group'>
-                <button type='submit' class='save-button' onclick='deleteProfile()'>Delete Profile</button>
+                <button type='submit' class='save-button' onclick='deleteProfile()'>Delete</button>
         </div>
-        <a href='index.php' class='other-button'>Log Out</a>
+        <a href='index.php' class='save-button'>Log out</a>
     </div>
     <script src='scriptProfile.js'></script>
 </body>

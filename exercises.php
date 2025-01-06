@@ -3,9 +3,7 @@
 $DEBUG = true;	 						
 include("orodja.php"); 					
 $zbirka = dbConnect();		
-$datum = date("Y-m-d"); // Outputs the current date in the format: 2024-12-26
-
-
+$datum = date("Y-m-d"); 
  
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
@@ -26,27 +24,14 @@ switch($_SERVER["REQUEST_METHOD"])
  
 
 	case 'POST':
-		//if(!empty($_GET["userVzdevek"]))
-		//{
-			dodaj_ali_posodobi_exercise();		
-		//}
-		//else
-		//{
-		//	http_response_code(400);				
-		//}
+		dodaj_ali_posodobi_exercise();		
 		break;
 
 
 	case 'DELETE':
-		//if(!empty($_GET["userVzdevek"]))
-		//{
-			izbrisi_exercise();		
-		//}
-		//else
-		//{
-		//	http_response_code(400);				
-		//}
+		izbrisi_exercise();		
 		break;
+
  
 	default:
 		http_response_code(405);		
@@ -54,6 +39,7 @@ switch($_SERVER["REQUEST_METHOD"])
 }
  
 mysqli_close($zbirka);					
+
 
 
 function user_exercise($userVzdevek)
@@ -90,7 +76,6 @@ function dodaj_ali_posodobi_exercise()
 {
     global $zbirka, $DEBUG, $datum;
     
-    // Preverimo, ali je telo zahteve ustrezno
     $podatki = json_decode(file_get_contents('php://input'), true);
 
     if (isset($podatki["username"], $podatki["exercise_name"], $podatki["weight"], $podatki["sets"], $podatki["reps"]))
@@ -102,10 +87,8 @@ function dodaj_ali_posodobi_exercise()
         $sets = mysqli_escape_string($zbirka, $podatki["sets"]);
         $reps = mysqli_escape_string($zbirka, $podatki["reps"]);
         
-        // Preveri, ali uporabnik obstaja
         if (user_obstaja($userVzdevek))
         {
-            // Preveri, ali obstaja zapis za tega uporabnika, datum in ime vaje
             $preveriPoizvedba = "SELECT 1 FROM exercise 
                                  WHERE username = '$userVzdevek' 
                                  AND exercise_name = '$exercise_name' 
@@ -115,7 +98,6 @@ function dodaj_ali_posodobi_exercise()
 
             if (mysqli_num_rows($rezultat) > 0)
             {
-                // Posodobi zapis, ker obstaja
                 $posodobiPoizvedba = "UPDATE exercise 
                                       SET weight = '$weight', sets = '$sets', reps = '$reps' 
                                       WHERE username = '$userVzdevek' 
@@ -124,11 +106,11 @@ function dodaj_ali_posodobi_exercise()
                 
                 if (mysqli_query($zbirka, $posodobiPoizvedba))
                 {
-                    http_response_code(200); // Uspešno posodobljeno
+                    http_response_code(200); 
                 }
                 else
                 {
-                    http_response_code(500); // Napaka pri posodobitvi
+                    http_response_code(500); 
                     if ($DEBUG)
                     {
                         pripravi_odgovor_napaka(mysqli_error($zbirka));
@@ -137,17 +119,16 @@ function dodaj_ali_posodobi_exercise()
             }
             else
             {
-                // Ustvari nov zapis, ker ne obstaja
                 $dodajPoizvedba = "INSERT INTO exercise (username, exercise_name, date, weight, sets, reps) 
                                    VALUES ('$userVzdevek', '$exercise_name', '$datum', '$weight', '$sets', '$reps')";
 
                 if (mysqli_query($zbirka, $dodajPoizvedba))
                 {
-                    http_response_code(201); // Ustvarjeno
+                    http_response_code(201); 
                 }
                 else
                 {
-                    http_response_code(500); // Napaka pri vnosu
+                    http_response_code(500); 
                     if ($DEBUG)
                     {
                         pripravi_odgovor_napaka(mysqli_error($zbirka));
@@ -157,35 +138,33 @@ function dodaj_ali_posodobi_exercise()
         }
         else
         {
-            http_response_code(409); // Uporabnik ne obstaja
-            pripravi_odgovor_napaka("User ne obstaja!");
+            http_response_code(409); 
+            pripravi_odgovor_napaka("User doesn't exist!");
         }
     }
     else
     {
-        http_response_code(400); // Manjkajo podatki
-        pripravi_odgovor_napaka("Manjkajo obvezni podatki v telesu zahteve!");
+        http_response_code(400); 
+        pripravi_odgovor_napaka("Missing data");
     }
 }
+
 
 
 function izbrisi_exercise()
 {
     global $zbirka, $DEBUG;
 
-    // Preberi podatke iz telesa zahteve
     $podatki = json_decode(file_get_contents('php://input'), true);
 
     if (isset($podatki["username"], $podatki["exercise_name"], $podatki["date"]))
     {
-        // Preveri, ali uporabnik obstaja
         if (user_obstaja($podatki["username"]))
         {
             $userVzdevek = mysqli_escape_string($zbirka, $podatki["username"]);
             $exercise_name = mysqli_escape_string($zbirka, $podatki["exercise_name"]);
             $date = mysqli_escape_string($zbirka, $podatki["date"]);
 
-            // Poizvedba za brisanje vnosa
             $brisanjePoizvedba = "DELETE FROM exercise 
                                   WHERE username = '$userVzdevek' 
                                   AND exercise_name = '$exercise_name' 
@@ -195,17 +174,16 @@ function izbrisi_exercise()
             {
                 if (mysqli_affected_rows($zbirka) > 0)
                 {
-                    http_response_code(200); // Uspešno izbrisano
+                    http_response_code(200); 
                 }
                 else
                 {
-                    http_response_code(404); // Zapis ni bil najden
-                    pripravi_odgovor_napaka("Zapis za podanega uporabnika, ime vaje in datum ni bil najden!");
+                    http_response_code(404); //zapis ni najden
                 }
             }
             else
             {
-                http_response_code(500); // Napaka pri brisanju
+                http_response_code(500); 
                 if ($DEBUG)
                 {
                     pripravi_odgovor_napaka(mysqli_error($zbirka));
@@ -214,14 +192,14 @@ function izbrisi_exercise()
         }
         else
         {
-            http_response_code(409); // Uporabnik ne obstaja
-            pripravi_odgovor_napaka("User ne obstaja!");
+            http_response_code(409); 
+            pripravi_odgovor_napaka("User doesn't exist!");
         }
     }
     else
     {
-        http_response_code(400); // Manjkajo podatki
-        pripravi_odgovor_napaka("Manjkajo obvezni podatki v telesu zahteve!");
+        http_response_code(400); 
+        pripravi_odgovor_napaka("Missing data");
     }
 }
 

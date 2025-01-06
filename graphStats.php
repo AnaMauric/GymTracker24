@@ -3,7 +3,7 @@
 $DEBUG = true;	 						
 include("orodja.php"); 					
 $zbirka = dbConnect();		
-$datum = date("Y-m-d"); // Outputs the current date in the format: 2024-12-26
+$datum = date("Y-m-d"); 
  
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
@@ -48,7 +48,6 @@ function user_exercise_weight($userVzdevek, $exercise)
 
             http_response_code(200);		
 		    echo json_encode($odgovor);
-
     }
 	
     else
@@ -58,6 +57,5 @@ function user_exercise_weight($userVzdevek, $exercise)
 	
 }
 
-//tuki je naceloma vse ok/končano in mora delat
 
 ?>

@@ -1,12 +1,12 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-color: #89CFF0;
 }
 
 .container {
@@ -22,6 +22,14 @@ h1 {
     margin: 0 0 20px;
     font-size: 24px;
     color: #333;
+} 
+
+
+h2 {
+    font-size: 30px; 
+    font-family: 'Fantasy', serif; 
+    letter-spacing: 2px; 
+    text-shadow: 1px 1px 2px gray; 
 }
 
 .form-group {
@@ -51,8 +59,10 @@ input:focus {
 }
 
 .save-button {
-    margin-top: 20px;
-    width: 300px;
+    display: block; 
+    text-decoration: none;
+    margin: 20px auto; /* Center horizontally */
+    width: 100px; /* Button width */
     padding: 10px;
     background-color: #007BFF;
     font-weight: bold;
@@ -61,6 +71,7 @@ input:focus {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    text-align: center; /* Ensures text inside the button is centered */
     transition: background-color 0.3s;
 }
 
@@ -73,27 +84,29 @@ input:focus {
 
 
 #scrollable-div {
-    max-height: 300px; /* Set a maximum height for the div */
-    overflow-y: auto; /* Enable vertical scrolling */
-    border: 1px solid #ccc; /* Optional: Add a border for the div */
-    padding: 10px; /* Add padding to make it look better */
+    max-height: 300px; 
+    overflow-y: auto; 
+    border: 1px solid black; 
+    padding: 10px; 
 }
 
 #data-table {
-    width: 100%; /* Ensure the table spans the full width of the div */
+    width: 100%; 
     border-collapse: collapse;
+    text-align: center;
 }
 
 #data-table th, #data-table td {
-    border: 1px solid #ddd;
+    border: 1px solid black;
     padding: 8px;
-    text-align: left;
+    text-align: center; 
 }
 
 #data-table th {
-    background-color: #f4f4f4;
-    position: sticky; /* Keep headers visible during scrolling */
+    background-color: rgb(80, 147, 228);
+    position: sticky; 
     top: 0;
+    
 }
 
 
@@ -109,12 +122,11 @@ input[type="text"], input[type="password"], input[type="date"], input[type="numb
 
 
 
-/* Home Button Styles */
-/* Home Button Styles */
+
 .home-button {
-    position: fixed; /* Force the button to stay in one place on the screen */
-    top: 10px; /* Distance from the top of the screen */
-    left: 10px; /* Distance from the left of the screen */
+    position: fixed; 
+    top: 10px;
+    left: 10px; 
     text-decoration: none;
     color: #fff;
     background-color: #007BFF;
@@ -122,7 +134,7 @@ input[type="text"], input[type="password"], input[type="date"], input[type="numb
     border-radius: 5px;
     font-size: 16px;
     font-weight: bold;
-    z-index: 1000; /* Ensure it appears above other content */
+    z-index: 1000; 
     transition: background-color 0.3s ease;
 }
 
@@ -132,20 +144,20 @@ input[type="text"], input[type="password"], input[type="date"], input[type="numb
 
 
 .other-button {
-    transform: translate(-50%, -50%); /* Center the button at the specified top/left position */
+    transform: translate(-50%, -50%); 
     text-decoration: none;
     color: #fff;
-    background-color: #28a745; /* A green color for differentiation */
+    background-color: #28a745; 
     padding: 10px 20px;
     border-radius: 5px;
     font-size: 16px;
     font-weight: bold;
-    z-index: 1000; /* Ensure it appears above other content */
+    z-index: 1000; 
     transition: background-color 0.3s ease;
 }
 
 .other-button:hover {
-    background-color: #218838; /* Darker green on hover */
+    background-color: #218838; 
 }
 
 
@@ -172,3 +184,4 @@ canvas {
     width: 100%;
     height: auto;
 }
+

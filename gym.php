@@ -19,7 +19,7 @@
             </div>
             <div class='form-group'>
                 <label for='weight'>Weight</label>
-                <input type='number' id='weight' name='weight' required>
+                <input type='number' id='weight' name='weight'  step='0.01' required>
             </div>
             <div class='form-group'>
                 <label for='sets'>Sets</label>
@@ -34,9 +34,7 @@
     </div>
     
     
-
     <div id='scrollable-div'>
-    <h1>Previous workouts</h1>
     <table id='data-table'>
         <thead>
             <tr>
