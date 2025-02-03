@@ -1,6 +1,6 @@
 <?php
 
-$DEBUG = true;	 						
+$DEBUG = true;	 					
 include("orodja.php"); 					
 $zbirka = dbConnect();		
 $datum = date("Y-m-d"); 

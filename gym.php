@@ -15,7 +15,15 @@
         <form  onsubmit='handleForm(event)'>
             <div class='form-group'>
                 <label for='exercise-name'>Exercise Name</label>
-                <input type='text' id='exercise-name' name='exercise_name' required>
+                <select id='exercise-name' name='exercise_name' required>
+                    <option value=''>-- Choose exercise --</option>
+                    <option value='Squat'>Squat</option>
+                    <option value='Leg press'>Leg press</option>
+                    <option value='Biceps curls'>Biceps curls</option>
+                    <option value='Bench press'>Bench press</option>
+                    <option value='Deadlift'>Deadlift</option>
+                    <option value='Pull-up'>Pull-up</option>
+                </select>
             </div>
             <div class='form-group'>
                 <label for='weight'>Weight</label>

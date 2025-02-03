@@ -7,6 +7,8 @@ $datum = date("Y-m-d");
  
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: Content-Type');  
+
 
  
 switch($_SERVER["REQUEST_METHOD"])		

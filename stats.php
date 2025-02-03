@@ -11,8 +11,17 @@ echo "<!DOCTYPE html>
 <body>
     <a href='home.php' class='home-button'>Home</a>
     <div>
-    <h1>Weight Progress Chart</h1>
-    <input type='text' id='exercise' placeholder='Enter exercise'>
+      <h1>Weight Progress Chart</h1>
+      <label for='exercise'>Exercise Name</label>
+                <select id='exercise' name='exercise' required>
+                    <option value=''>-- Choose exercise --</option>
+                    <option value='Squat'>Squat</option>
+                    <option value='leg press'>leg press</option>
+                    <option value='Biceps curls'>Biceps curls</option>
+                    <option value='Bench press'>Bench press</option>
+                    <option value='Deadlift'>Deadlift</option>
+                    <option value='Pull-up'>Pull-up</option>
+                </select>
       <button id='submitButton' class='save-button'>Submit</button>
     </div>
     <div>

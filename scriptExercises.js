@@ -6,7 +6,7 @@ function getvariables(){
 
 document.addEventListener("DOMContentLoaded", () => {
     fetchData();
-});
+}); 
 
 
 async function handleForm(event) {
