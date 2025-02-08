@@ -78,6 +78,32 @@ async function handleFormProfile(event) {
 
 
 
+async function inputWeight(event) {
+    event.preventDefault(); 
+
+    username = localStorage.getItem("username");
+    const weight = document.getElementById('weight').value;
+
+    try {
+        const response = await fetch('weight.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username: username, weight:weight}),
+        });
+        
+        
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to connect to the server.');
+    }
+
+}
+
+
+
+
 
 
 async function deleteProfile() {

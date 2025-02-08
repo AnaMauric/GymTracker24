@@ -1,6 +1,6 @@
 <?php
 
-$DEBUG = true;	 						
+$DEBUG = true;							
 include("orodja.php"); 					
 $zbirka = dbConnect();		
 $datum = date("Y-m-d"); 
@@ -52,7 +52,7 @@ function user_exercise($userVzdevek)
     if (user_obstaja($userVzdevek))
     {
         $poizvedba="SELECT exercise_name, date, weight, sets, reps FROM exercise WHERE username='$userVzdevek' ORDER BY date";
-
+            
             $result=mysqli_query($zbirka, $poizvedba);
 
             while($vrstica=mysqli_fetch_assoc($result))
@@ -96,6 +96,7 @@ function dodaj_ali_posodobi_exercise()
                                  AND exercise_name = '$exercise_name' 
                                  AND date = '$datum' 
                                  LIMIT 1";
+            
             $rezultat = mysqli_query($zbirka, $preveriPoizvedba);
 
             if (mysqli_num_rows($rezultat) > 0)

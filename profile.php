@@ -12,7 +12,7 @@ echo"<!DOCTYPE html>
     <a href='home.php' class='home-button'>Home</a>
     <div> 
       <h1>Profile</h1>
-        <form onsubmit='handleFormProfile(event)'>
+        <form onsubmit='handleFormProfile(event); inputWeight(event);'>
             <div class='form-group'>
                 <label for='username'>Username:</label>
                 <input type='text' id='username' name='username' placeholder='Enter your username' value='DefaultUsername'>

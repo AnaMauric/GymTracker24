@@ -27,6 +27,10 @@ echo "<!DOCTYPE html>
     <div>
       <canvas id='weightChart' width='500' height='500'></canvas>
     </div>
+    <button id='getWeightButton' class='save-button'>Get Weight</button>
+    <div>
+      <canvas id='weightChart2' width='500' height='500'></canvas>
+    </div>
     <script src='scriptStats.js'></script>
 </body>
 </html>";  
