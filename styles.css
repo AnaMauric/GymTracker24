@@ -80,6 +80,23 @@ input:focus {
 }
 
 
+.delete-button {
+    display: block; 
+    text-decoration: none;
+    margin: 20px auto; /* Center horizontally */
+    width: 100px; /* Button width */
+    padding: 10px;
+    background-color: red;
+    font-weight: bold;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center; /* Ensures text inside the button is centered */
+    transition: background-color 0.3s;
+}
+
 
 
 
@@ -129,7 +146,7 @@ input[type="text"], input[type="password"], input[type="date"], input[type="numb
     left: 10px; 
     text-decoration: none;
     color: #fff;
-    background-color: #007BFF;
+    background-color: #00008B;
     padding: 10px 20px;
     border-radius: 5px;
     font-size: 16px;

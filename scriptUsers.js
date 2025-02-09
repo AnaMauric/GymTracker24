@@ -9,7 +9,7 @@ async function handleForm(event) {
     if (!username || !password) {
         alert('Please enter username and password.');
         return;
-    }
+    } 
 
     try {
         const response = await fetch('userji.php', {

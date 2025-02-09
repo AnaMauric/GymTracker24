@@ -11,23 +11,29 @@ echo "<!DOCTYPE html>
 <body>
     <a href='home.php' class='home-button'>Home</a>
     <div>
-      <h1>Weight Progress Chart</h1>
-      <label for='exercise'>Exercise Name</label>
+      <h1>Exercise Progress Chart</h1>
+        <label for='exercise'>Exercise Name</label>
                 <select id='exercise' name='exercise' required>
                     <option value=''>-- Choose exercise --</option>
-                    <option value='Squat'>Squat</option>
-                    <option value='leg press'>leg press</option>
-                    <option value='Biceps curls'>Biceps curls</option>
+                    <option value='Assisted Pull-ups'>Assisted Pull-ups</option>
+                    <option value='Back Squat'>Back Squat</option>
                     <option value='Bench press'>Bench press</option>
+                    <option value='Biceps Curls'>Biceps Curls</option>
                     <option value='Deadlift'>Deadlift</option>
-                    <option value='Pull-up'>Pull-up</option>
+                    <option value='Hack Squat'>Hack Squat</option>
+                    <option value='Hip Thrusts'>Hip Thrusts</option>
+                    <option value='Shoulder Press'>Shoulder Press</option>
+                    <option value='Triceps Rope Pull-downs'>Triceps Rope Pull-downs</option>
                 </select>
       <button id='submitButton' class='save-button'>Submit</button>
     </div>
     <div>
       <canvas id='weightChart' width='500' height='500'></canvas>
     </div>
-    <button id='getWeightButton' class='save-button'>Get Weight</button>
+      <div>
+        <h1>Body-weight Progress Chart</h1>
+        <button id='getWeightButton' class='save-button'>Submit</button>
+      </div>
     <div>
       <canvas id='weightChart2' width='500' height='500'></canvas>
     </div>

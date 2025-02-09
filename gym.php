@@ -17,12 +17,15 @@
                 <label for='exercise-name'>Exercise Name</label>
                 <select id='exercise-name' name='exercise_name' required>
                     <option value=''>-- Choose exercise --</option>
-                    <option value='Squat'>Squat</option>
-                    <option value='Leg press'>Leg press</option>
-                    <option value='Biceps curls'>Biceps curls</option>
+                    <option value='Assisted Pull-ups'>Assisted Pull-ups</option>
+                    <option value='Back Squat'>Back Squat</option>
                     <option value='Bench press'>Bench press</option>
+                    <option value='Biceps Curls'>Biceps Curls</option>
                     <option value='Deadlift'>Deadlift</option>
-                    <option value='Pull-up'>Pull-up</option>
+                    <option value='Hack Squat'>Hack Squat</option>
+                    <option value='Hip Thrusts'>Hip Thrusts</option>
+                    <option value='Shoulder Press'>Shoulder Press</option>
+                    <option value='Triceps Rope Pull-downs'>Triceps Rope Pull-downs</option>
                 </select>
             </div>
             <div class='form-group'>
@@ -65,7 +68,18 @@
         <form  onsubmit='handleFormDelete(event)'>
             <div class='form-group'>
                 <label for='exercise-name'>Exercise Name</label>
-                <input type='text' id='exercise-delete' name='exercise_delete' required>
+                    <select id='exercise-delete' name='exercise_delete' required>
+                        <option value=''>-- Choose exercise --</option>
+                        <option value='Assisted Pull-ups'>Assisted Pull-ups</option>
+                        <option value='Back Squat'>Back Squat</option>
+                        <option value='Bench press'>Bench press</option>
+                        <option value='Biceps Curls'>Biceps Curls</option>
+                        <option value='Deadlift'>Deadlift</option>
+                        <option value='Hack Squat'>Hack Squat</option>
+                        <option value='Hip Thrusts'>Hip Thrusts</option>
+                        <option value='Shoulder Press'>Shoulder Press</option>
+                        <option value='Triceps Rope Pull-downs'>Triceps Rope Pull-downs</option>
+                    </select>
             </div>
             <div class='form-group'>
                 <label for='dat'>Pick a Date:</label>

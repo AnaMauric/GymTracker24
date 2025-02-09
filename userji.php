@@ -83,39 +83,46 @@ function pridobi_user($userVzdevek)
 function dodaj_user()
 {
 	global $zbirka, $DEBUG;
-	$podatki = json_decode(file_get_contents("php://input"),true);
+	$podatki = json_decode(file_get_contents("php://input"), true);
 
-	if (isset($podatki["username"], $podatki["password"]))
-	{
-		$userVzdevek = mysqli_escape_string($zbirka, $podatki["username"]);
-		$userPassword = mysqli_escape_string($zbirka, $podatki["password"]);
-		
-		if(!user_obstaja($userVzdevek))
-		{	
-			$poizvedba = "INSERT INTO user (username, password) VALUES ('$userVzdevek', '$userPassword')";
- 
-			if(mysqli_query($zbirka, $poizvedba))
-			{
+	if (isset($podatki["username"], $podatki["password"])) {
+		$userVzdevek = mysqli_real_escape_string($zbirka, $podatki["username"]);
+		$userPassword = mysqli_real_escape_string($zbirka, $podatki["password"]);
+
+		if (!user_obstaja($userVzdevek)) {	
+			$userPasswordHash = password_hash($userPassword, PASSWORD_DEFAULT);
+			$poizvedba = "INSERT INTO user (username, password) VALUES ('$userVzdevek', '$userPasswordHash')";
+
+			if (mysqli_query($zbirka, $poizvedba)) {
 				http_response_code(201);
 				$odgovor = URL_vira($userVzdevek);
 				echo json_encode($odgovor);
-			}
-			else
-			{
+			} else {
 				http_response_code(500);
-				if($DEBUG)
-				{
+				if ($DEBUG) {
 					pripravi_odgovor_napaka(mysqli_error($zbirka));
 				}
 			}
-		}
-		else
-		{
-			http_response_code(200);
-	
-		}
-	}  
+		} else {
+			// Pridobimo geslo iz baze
+			$poizvedba = "SELECT password FROM user WHERE username='$userVzdevek'";
+			$rezultat = mysqli_query($zbirka, $poizvedba);
 
+			if ($rezultat && mysqli_num_rows($rezultat) > 0) {
+				$vrstica = mysqli_fetch_assoc($rezultat);
+				$hashGeslo = $vrstica["password"];
+
+				// Preverimo geslo
+				if (password_verify($userPassword, $hashGeslo)) {
+					http_response_code(200);
+				} else {
+					http_response_code(405);
+				}
+			} else {
+				http_response_code(404); // Če uporabnik ne obstaja
+			}
+		}
+	}
 }
  
 
@@ -132,6 +139,8 @@ function posodobi_user()
 		$userPassword = mysqli_escape_string($zbirka, $podatki["password"]);
 		$birthday = mysqli_escape_string($zbirka, $podatki["birthday"]);
 		$weight = mysqli_escape_string($zbirka, $podatki["weight"]);	
+
+		$userPassword= password_hash($userPassword, PASSWORD_DEFAULT);
 
 		if(user_obstaja($userVzdevek)){
 			$poizvedba = "UPDATE user SET password = '$userPassword', birthday = '$birthday', weight = '$weight' WHERE username = '$userVzdevek'";

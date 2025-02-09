@@ -7,7 +7,6 @@ window.onload = function () {
     passwordInput.value = localStorage.getItem("password");
 
     GetBirthAndWeight(localStorage.getItem("username"));
-
 };
 
 
@@ -108,6 +107,12 @@ async function inputWeight(event) {
 
 async function deleteProfile() {
 
+    const confirmation = confirm("Are you sure you want to delete your profile?");
+    
+    if (!confirmation) {
+        return;
+    }
+
     username = localStorage.getItem("username");
 
     try {
@@ -118,14 +123,13 @@ async function deleteProfile() {
             },
             body: JSON.stringify({ username: username}),
         });
-            
-        alert('Profile succesfully deleted.');
 
         if (response.ok) {
+            alert('Profile succesfully deleted.');
             window.location.href = 'index.php';  
-        } 
-        
-
+        } else {
+            alert('Failed to delete profile.');
+        }
         
     } catch (error) {
         console.error('Error:', error);

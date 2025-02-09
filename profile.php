@@ -15,12 +15,12 @@ echo"<!DOCTYPE html>
         <form onsubmit='handleFormProfile(event); inputWeight(event);'>
             <div class='form-group'>
                 <label for='username'>Username:</label>
-                <input type='text' id='username' name='username' placeholder='Enter your username' value='DefaultUsername'>
+                <input type='text' id='username' name='username' value='DefaultUsername'>
             </div>
 
             <div class='form-group'>
                 <label for='password'>Password:</label>
-                <input type='password' id='password' name='password' placeholder='Enter your password'>
+                <input type='password' id='password' name='password'>
             </div>
 
             <div class='form-group'>
@@ -37,10 +37,13 @@ echo"<!DOCTYPE html>
                 <button type='submit' class='save-button'>Save</button>
             </div>
         </form>
+            <div>
+                <a href='index.php' class='save-button'>Log out</a>
+            </div>
+            
         <div class='form-group'>
-                <button type='submit' class='save-button' onclick='deleteProfile()'>Delete</button>
+            <button type='submit' class='delete-button' onclick='deleteProfile()'>Delete</button>
         </div>
-        <a href='index.php' class='save-button'>Log out</a>
     </div>
     <script src='scriptProfile.js'></script>
 </body>
