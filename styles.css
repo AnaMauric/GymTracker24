@@ -61,8 +61,8 @@ input:focus {
 .save-button {
     display: block; 
     text-decoration: none;
-    margin: 20px auto; /* Center horizontally */
-    width: 100px; /* Button width */
+    margin: 20px auto; 
+    width: 100px; 
     padding: 10px;
     background-color: #007BFF;
     font-weight: bold;
@@ -71,7 +71,7 @@ input:focus {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    text-align: center; /* Ensures text inside the button is centered */
+    text-align: center; 
     transition: background-color 0.3s;
 }
 
@@ -83,8 +83,8 @@ input:focus {
 .delete-button {
     display: block; 
     text-decoration: none;
-    margin: 20px auto; /* Center horizontally */
-    width: 100px; /* Button width */
+    margin: 20px auto; 
+    width: 100px; 
     padding: 10px;
     background-color: red;
     font-weight: bold;
@@ -93,7 +93,7 @@ input:focus {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    text-align: center; /* Ensures text inside the button is centered */
+    text-align: center; 
     transition: background-color 0.3s;
 }
 

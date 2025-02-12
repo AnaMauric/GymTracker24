@@ -70,7 +70,6 @@ function dodaj_weight()
 	{
 		$userVzdevek = mysqli_escape_string($zbirka, $podatki["username"]);
 		$userWeight = mysqli_escape_string($zbirka, $podatki["weight"]);
-        //$datum = date("Y-m-d"); 
 		
 		if(user_obstaja($userVzdevek))
 		{	
@@ -98,7 +97,7 @@ function dodaj_weight()
 		}
 	}  
     else{
-        http_response_code(300);
+        http_response_code(400);
     }
 
 }

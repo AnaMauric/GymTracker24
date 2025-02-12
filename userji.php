@@ -104,7 +104,6 @@ function dodaj_user()
 				}
 			}
 		} else {
-			// Pridobimo geslo iz baze
 			$poizvedba = "SELECT password FROM user WHERE username='$userVzdevek'";
 			$rezultat = mysqli_query($zbirka, $poizvedba);
 
@@ -112,14 +111,13 @@ function dodaj_user()
 				$vrstica = mysqli_fetch_assoc($rezultat);
 				$hashGeslo = $vrstica["password"];
 
-				// Preverimo geslo
 				if (password_verify($userPassword, $hashGeslo)) {
 					http_response_code(200);
 				} else {
-					http_response_code(405);
+					http_response_code(401);
 				}
 			} else {
-				http_response_code(404); // Če uporabnik ne obstaja
+				http_response_code(404);
 			}
 		}
 	}
@@ -147,7 +145,7 @@ function posodobi_user()
 			
 			if(mysqli_query($zbirka, $poizvedba))
 			{
-				http_response_code(204);	
+				http_response_code(200);	
 			} else {
 				http_response_code(500);
 				if($DEBUG)
@@ -180,7 +178,7 @@ function izbrisi_user()
 			$poizvedba = "DELETE FROM user WHERE username='$userVzdevek'";
 			if(mysqli_query($zbirka, $poizvedba))
 			{
-				http_response_code(204);
+				http_response_code(200);
 			}
 			else
 			{
